@@ -1,12 +1,11 @@
 import { Menu } from '@material-ui/icons';
 import {AppBar, Button, Container, IconButton, Toolbar, Typography} from '@mui/material';
 import React from 'react';
-import './App.module.css';
-import { Todolist } from './components/Todolist';
+import { TodolistsPage } from './components/TodolistsPage';
 
 function App() {
   return (
-    <div className="App">
+    <div>
         <div className="App">
             <AppBar position="static">
                 <Toolbar>
@@ -14,16 +13,16 @@ function App() {
                         <Menu/>
                     </IconButton>
                     <Typography variant="h6">
-                        Todo App
                     </Typography>
                     <Button color="inherit" >Login</Button>
                 </Toolbar>
             </AppBar>
             <Container fixed>
-                <Todolist title={'what to learn'} filter={'all'}/>
-                <Todolist title={'what to buy'} filter={'active'}/>
+                <TodolistsPage/>
             </Container>
         </div>
+
+        <h1>LOL</h1>
 
     </div>
   );
