@@ -21,25 +21,31 @@ type PropsType = {
     removeTask: (taskId: string, todolistId: string) => void
     removeTodolist: (id: string) => void
     filter: FilterValuesType
+    changeTaskTitle: (todolistId: string, taskId: string, newTitle: string) => void
+    changeTodolistTitle: (todolistId: string, title: string) => void
+
 
 }
 
 export const Todolist = React.memo(function (props: PropsType) {
-    console.log('Todolist called')
 
     const dispatch = useDispatch()
     useEffect(() => {
         const thunk = fetchTasksTC(props.id)
         dispatch(thunk)
-    }, [dispatch, props.id])
+    }, [])
 
     const addTask = useCallback((title: string) => {
         props.addTask(title, props.id)
-    }, [props])
+    }, [props.id])
 
     const removeTodolist = () => {
         props.removeTodolist(props.id)
     }
+
+    const changeTodolistTitleObertka = useCallback((title: string) => {
+        props.changeTodolistTitle(props.id, title)
+    }, [props.id, props.changeTodolistTitle])
 
 
     let tasksForTodolist = props.tasks
@@ -52,7 +58,7 @@ export const Todolist = React.memo(function (props: PropsType) {
     }
 
     return <div>
-        <h3><EditableSpan value={props.title} onChange={()=>{console.log('edit')}}/>
+        <h3><EditableSpan value={props.title} onChange={changeTodolistTitleObertka}/>
             <IconButton onClick={removeTodolist}>
                 <Delete/>
             </IconButton>
@@ -60,8 +66,10 @@ export const Todolist = React.memo(function (props: PropsType) {
         <AddItemForm addItem={addTask}/>
         <div>
             {
-                tasksForTodolist.map(t => <Task key={t.id} task={t} todolistId={props.id}
+                tasksForTodolist.map(t => <Task key={t.id} task={t}
+                                                todolistId={props.id}
                                                 removeTask={props.removeTask}
+                                                changeTaskTitle={props.changeTaskTitle}
                 />)
             }
         </div>

@@ -4,12 +4,12 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { AppRootStateType } from '../bll/store';
 import {
-    addTodolistTC,
+    addTodolistTC, changeTodolistTitleTC,
     fetchTodolistsTC,
     removeTodolistTC,
     TodolistDomainType
 } from '../bll/todolists-reducer';
-import {addTaskTC, removeTaskTC, TasksStateType} from "../bll/task-reducer";
+import {addTaskTC, removeTaskTC, TasksStateType, updateTaskTC} from "../bll/task-reducer";
 import { AddItemForm } from '../common/AddItemForm/AddItemForm';
 import { Todolist } from './Todolist';
 
@@ -47,6 +47,14 @@ export const TodolistsPage: React.FC = () => {
         dispatch(thunk)
     }, [dispatch])
 
+    const changeTaskTitle = useCallback( (todolistId: string, id: string, newTitle: string) => {
+        dispatch(updateTaskTC(todolistId, id, {title: newTitle}))
+    }, [])
+
+    const changeTodolistTitle = useCallback( (todolistId: string, title:string) => {
+        dispatch(changeTodolistTitleTC(todolistId, title))
+    }, [])
+
 
     return <>
         <Grid container style={{padding: '20px'}}>
@@ -67,6 +75,9 @@ export const TodolistsPage: React.FC = () => {
                                 addTask={addTask}
                                 filter={tl.filter}
                                 removeTodolist={removeTodolist}
+                                changeTaskTitle={changeTaskTitle}
+                                changeTodolistTitle={changeTodolistTitle}
+
                             />
                         </Paper>
                     </Grid>

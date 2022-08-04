@@ -12,8 +12,7 @@ function App() {
                     <IconButton edge="start" color="inherit" aria-label="menu">
                         <Menu/>
                     </IconButton>
-                    <Typography variant="h6">
-                    </Typography>
+                    <Typography variant="h6"> TodoApp</Typography>
                     <Button color="inherit" >Login</Button>
                 </Toolbar>
             </AppBar>
@@ -21,9 +20,6 @@ function App() {
                 <TodolistsPage/>
             </Container>
         </div>
-
-        <h1>LOL</h1>
-
     </div>
   );
 }
