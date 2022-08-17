@@ -23,6 +23,10 @@ type PropsType = {
     filter: FilterValuesType
     changeTaskTitle: (todolistId: string, taskId: string, newTitle: string) => void
     changeTodolistTitle: (todolistId: string, title: string) => void
+    changeFilter: (value: FilterValuesType, todolistId: string) => void
+    changeTaskStatus: (todolistId: string, id: string, status: TaskStatuses) => void
+
+
 
 
 }
@@ -31,8 +35,7 @@ export const Todolist = React.memo(function (props: PropsType) {
 
     const dispatch = useDispatch()
     useEffect(() => {
-        const thunk = fetchTasksTC(props.id)
-        dispatch(thunk)
+        dispatch(fetchTasksTC(props.id))
     }, [])
 
     const addTask = useCallback((title: string) => {
@@ -46,6 +49,10 @@ export const Todolist = React.memo(function (props: PropsType) {
     const changeTodolistTitleObertka = useCallback((title: string) => {
         props.changeTodolistTitle(props.id, title)
     }, [props.id, props.changeTodolistTitle])
+
+    const onAllClickHandler = useCallback(() => props.changeFilter('all', props.id), [props.id, props.changeFilter])
+    const onActiveClickHandler = useCallback(() => props.changeFilter('active', props.id), [props.id, props.changeFilter])
+    const onCompletedClickHandler = useCallback(() => props.changeFilter('completed', props.id), [props.id, props.changeFilter])
 
 
     let tasksForTodolist = props.tasks
@@ -70,21 +77,23 @@ export const Todolist = React.memo(function (props: PropsType) {
                                                 todolistId={props.id}
                                                 removeTask={props.removeTask}
                                                 changeTaskTitle={props.changeTaskTitle}
+                                                changeTaskStatus={props.changeTaskStatus}
+
                 />)
             }
         </div>
         <div style={{paddingTop: '10px'}}>
             <Button variant={props.filter === 'all' ? 'outlined' : 'text'}
-                    onClick={()=>{}}
+                    onClick={onAllClickHandler}
                     color={'inherit'}
             >All
             </Button>
             <Button variant={props.filter === 'active' ? 'outlined' : 'text'}
-                    onClick={()=>{}}
+                    onClick={onActiveClickHandler}
                     color={'primary'}>Active
             </Button>
             <Button variant={props.filter === 'completed' ? 'outlined' : 'text'}
-                    onClick={()=>{}}
+                    onClick={onCompletedClickHandler}
                     color={'secondary'}>Completed
             </Button>
         </div>

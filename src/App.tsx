@@ -6,7 +6,7 @@ import { TodolistsPage } from './components/TodolistsPage';
 function App() {
   return (
     <div>
-        <div className="App">
+        <div>
             <AppBar position="static">
                 <Toolbar>
                     <IconButton edge="start" color="inherit" aria-label="menu">

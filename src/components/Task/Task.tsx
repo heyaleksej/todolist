@@ -1,4 +1,4 @@
-import React, {useCallback } from 'react'
+import React, {ChangeEvent, useCallback } from 'react'
 
 import IconButton from '@mui/material/IconButton';
 import Checkbox from '@mui/material/Checkbox';
@@ -9,6 +9,7 @@ import {Delete} from "@material-ui/icons";
 type TaskPropsType = {
     task: TaskType
     todolistId: string
+    changeTaskStatus: (todolistId: string, id: string, status: TaskStatuses) => void
     removeTask: (todolistId: string, taskId: string) => void
     changeTaskTitle: (todolistId: string, taskId: string, newTitle: string) => void
 
@@ -20,12 +21,15 @@ export const Task = React.memo((props: TaskPropsType) => {
         props.changeTaskTitle(props.todolistId, props.task.id, newTitle)
     }, [props.todolistId, props.task.id]);
 
+    const onChangeFilterHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+        props.changeTaskStatus(props.todolistId, props.task.id, e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New)
+    }, [props.task.id, props.todolistId]);
+
     return <div key={props.task.id} className={props.task.status === TaskStatuses.Completed ? 'is-done' : ''}>
         <Checkbox
             checked={props.task.status === TaskStatuses.Completed}
             color="primary"
-            onChange={()=>{
-                console.log('change status')}}
+            onChange={onChangeFilterHandler}
         />
 
         <EditableSpan value={props.task.title} onChange={onChangeTitleHandler}/>

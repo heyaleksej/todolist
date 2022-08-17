@@ -4,14 +4,16 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { AppRootStateType } from '../bll/store';
 import {
-    addTodolistTC, changeTodolistTitleTC,
+    addTodolistTC, changeTodolistFilterAC, changeTodolistTitleTC,
     fetchTodolistsTC,
+    FilterValuesType,
     removeTodolistTC,
     TodolistDomainType
 } from '../bll/todolists-reducer';
 import {addTaskTC, removeTaskTC, TasksStateType, updateTaskTC} from "../bll/task-reducer";
 import { AddItemForm } from '../common/AddItemForm/AddItemForm';
 import { Todolist } from './Todolist';
+import {TaskStatuses} from "../api/api";
 
 export const TodolistsPage: React.FC = () => {
 
@@ -21,8 +23,7 @@ export const TodolistsPage: React.FC = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        const thunk = fetchTodolistsTC()
-        dispatch(thunk)
+        dispatch(fetchTodolistsTC())
     }, [dispatch])
 
     const removeTask = useCallback(function (id: string, todolistId: string) {
@@ -55,6 +56,14 @@ export const TodolistsPage: React.FC = () => {
         dispatch(changeTodolistTitleTC(todolistId, title))
     }, [])
 
+    const changeFilter = useCallback(function (value: FilterValuesType, todolistId: string) {
+        dispatch(changeTodolistFilterAC(todolistId, value))
+    }, [dispatch])
+
+    const changeStatus = useCallback(function (todolistId: string, id: string, status: TaskStatuses) {
+        dispatch(updateTaskTC(todolistId, id, {status}))
+    }, [])
+
 
     return <>
         <Grid container style={{padding: '20px'}}>
@@ -77,6 +86,10 @@ export const TodolistsPage: React.FC = () => {
                                 removeTodolist={removeTodolist}
                                 changeTaskTitle={changeTaskTitle}
                                 changeTodolistTitle={changeTodolistTitle}
+                                changeFilter={changeFilter}
+                                changeTaskStatus={changeStatus}
+
+
 
                             />
                         </Paper>
