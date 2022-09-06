@@ -1,16 +1,18 @@
-import React, { useCallback, useEffect } from 'react'
+import React, {useCallback, useEffect} from 'react'
 import {TaskStatuses, TaskType} from "../api/api";
 import {FilterValuesType} from "../bll/todolists-reducer";
-import { useDispatch } from 'react-redux'
-import { EditableSpan } from '../common/EditableSpan/EditableSpan';
-import { IconButton } from '@mui/material';
-import { Delete } from '@material-ui/icons';
+import {useDispatch} from 'react-redux'
+import {EditableSpan} from '../common/EditableSpan/EditableSpan';
+import {IconButton} from '@mui/material';
+import {Delete} from '@material-ui/icons';
 import {AddItemForm} from "../common/AddItemForm/AddItemForm";
-import { Task } from './Task/Task';
+import {Task} from './Task/Task';
 import Button from '@material-ui/core/Button';
-import { fetchTasksTC } from '../bll/task-reducer';
-
-
+import {fetchTasksTC} from '../bll/task-reducer';
+import clip1 from "../common/Img/klipGreen.png";
+import clip2 from "../common/Img/klipOrange.png";
+import clip3 from "../common/Img/klipBlue.png";
+import s from "./TodolistsPage.module.css";
 
 
 type PropsType = {
@@ -25,8 +27,6 @@ type PropsType = {
     changeTodolistTitle: (todolistId: string, title: string) => void
     changeFilter: (value: FilterValuesType, todolistId: string) => void
     changeTaskStatus: (todolistId: string, id: string, status: TaskStatuses) => void
-
-
 
 
 }
@@ -64,8 +64,11 @@ export const Todolist = React.memo(function (props: PropsType) {
         tasksForTodolist = props.tasks.filter(t => t.status === TaskStatuses.Completed)
     }
 
+
     return <div>
-        <h3><EditableSpan value={props.title} onChange={changeTodolistTitleObertka}/>
+        <img src={clip3} className={s.clip}/>
+        <h3 style={{marginBlockStart:'0'}}>
+            <EditableSpan value={props.title} onChange={changeTodolistTitleObertka}/>
             <IconButton onClick={removeTodolist}>
                 <Delete/>
             </IconButton>
@@ -97,6 +100,7 @@ export const Todolist = React.memo(function (props: PropsType) {
                     color={'secondary'}>Completed
             </Button>
         </div>
+
     </div>
 })
 

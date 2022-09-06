@@ -1,0 +1,14 @@
+.todoPage{
+    background: url("./../common/Img/pape1.jpeg") repeat;
+    background-size:cover;
+    padding: 0 9% 9%;
+    width: 25vw;
+    margin-right:5% ;
+    position: relative;
+}
+
+.clip{
+    display: flex;
+    margin: auto;
+    height: 4vh;
+}

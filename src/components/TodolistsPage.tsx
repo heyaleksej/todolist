@@ -2,6 +2,7 @@ import React, { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
+import s from './TodolistsPage.module.css'
 import { AppRootStateType } from '../bll/store';
 import {
     addTodolistTC, changeTodolistFilterAC, changeTodolistTitleTC,
@@ -14,11 +15,13 @@ import {addTaskTC, removeTaskTC, TasksStateType, updateTaskTC} from "../bll/task
 import { AddItemForm } from '../common/AddItemForm/AddItemForm';
 import { Todolist } from './Todolist';
 import {TaskStatuses} from "../api/api";
+import { Navigate } from 'react-router-dom';
 
 export const TodolistsPage: React.FC = () => {
 
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
 
     const dispatch = useDispatch()
 
@@ -27,8 +30,7 @@ export const TodolistsPage: React.FC = () => {
     }, [dispatch])
 
     const removeTask = useCallback(function (id: string, todolistId: string) {
-        const thunk = removeTaskTC(id, todolistId)
-        dispatch(thunk)
+        dispatch( removeTaskTC(id, todolistId))
     }, [dispatch])
 
     const addTask = useCallback(function (title: string, todolistId: string) {
@@ -44,8 +46,7 @@ export const TodolistsPage: React.FC = () => {
 
 
     const addTodolist = useCallback((title: string) => {
-        const thunk = addTodolistTC(title)
-        dispatch(thunk)
+        dispatch(addTodolistTC(title))
     }, [dispatch])
 
     const changeTaskTitle = useCallback( (todolistId: string, id: string, newTitle: string) => {
@@ -64,9 +65,13 @@ export const TodolistsPage: React.FC = () => {
         dispatch(updateTaskTC(todolistId, id, {status}))
     }, [])
 
+    if (!isLoggedIn) {
+        return <Navigate to={"/login"} />
+    }
+
 
     return <>
-        <Grid container style={{padding: '20px'}}>
+        <Grid container style={{padding: '20px', background: 'url(../common/Img/paper.jpg)', width:'100%', height:'100%'}}>
             <AddItemForm addItem={addTodolist}/>
         </Grid>
         <Grid container spacing={3}>
@@ -75,7 +80,7 @@ export const TodolistsPage: React.FC = () => {
                     let allTodolistTasks = tasks[tl.id]
 
                     return <Grid item key={tl.id}>
-                        <Paper style={{padding: '10px'}}>
+                        <Paper className={s.todoPage}>
                             <Todolist
                                 id={tl.id}
                                 title={tl.title}
@@ -88,10 +93,8 @@ export const TodolistsPage: React.FC = () => {
                                 changeTodolistTitle={changeTodolistTitle}
                                 changeFilter={changeFilter}
                                 changeTaskStatus={changeStatus}
-
-
-
                             />
+
                         </Paper>
                     </Grid>
                 })
