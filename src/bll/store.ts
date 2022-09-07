@@ -1,5 +1,5 @@
 import {AnyAction, applyMiddleware, combineReducers, createStore} from 'redux'
-import thunkMiddleware, {ThunkDispatch} from 'redux-thunk'
+import thunkMiddleware, {ThunkAction, ThunkDispatch} from 'redux-thunk'
 import { authReducer } from '../components/auth-reducer';
 import { appReducer } from './app-reducer';
 import { tasksReducer } from './task-reducer';
@@ -22,6 +22,10 @@ export type AppRootStateType = ReturnType<typeof rootReducer>
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = ThunkDispatch<RootState, unknown, AnyAction>
 
+
+
 // а это, чтобы можно было в консоли браузера обращаться к store в любой момент
 // @ts-ignore
 window.store = store;
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, AnyAction>
+

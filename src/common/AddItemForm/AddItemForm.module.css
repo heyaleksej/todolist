@@ -1,0 +1,32 @@
+.addLogo{
+    width: 3vw;
+}
+.wrapper{
+    display: flex;
+    align-items: center;
+}
+
+.addForm{
+    display: flex;
+    height: 8vh;
+
+}
+
+.textField{
+    height: 15vh;
+    align-items: center;
+    vertical-align: center;
+}
+
+@media screen and (max-width: 600px){
+    .addLogo{
+        width: 8vw;
+        padding: 1%;
+    }
+
+    .addForm{
+        height: 7vh;
+        padding: 2vh;
+    }
+
+}

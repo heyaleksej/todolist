@@ -13,6 +13,7 @@ import clip1 from "../common/Img/klipGreen.png";
 import clip2 from "../common/Img/klipOrange.png";
 import clip3 from "../common/Img/klipBlue.png";
 import s from "./TodolistsPage.module.css";
+import SplitButton from "../common/ButtonGroup/SplitButton";
 
 
 type PropsType = {
@@ -65,16 +66,16 @@ export const Todolist = React.memo(function (props: PropsType) {
     }
 
 
-    return <div>
+    return <div className={s.taskWrapper}>
         <img src={clip3} className={s.clip}/>
-        <h3 style={{marginBlockStart:'0'}}>
+        <h3  className={s.titleBlock} style={{marginBlockStart:'0', display: 'flex', margin:'auto'}}>
             <EditableSpan value={props.title} onChange={changeTodolistTitleObertka}/>
             <IconButton onClick={removeTodolist}>
                 <Delete/>
             </IconButton>
         </h3>
-        <AddItemForm addItem={addTask}/>
-        <div>
+        <AddItemForm addItem={addTask} label={'Enter new task name'} inputStyle={{width:'100%'}}/>
+        <div className={s.tasksList}>
             {
                 tasksForTodolist.map(t => <Task key={t.id} task={t}
                                                 todolistId={props.id}
@@ -85,20 +86,8 @@ export const Todolist = React.memo(function (props: PropsType) {
                 />)
             }
         </div>
-        <div style={{paddingTop: '10px'}}>
-            <Button variant={props.filter === 'all' ? 'outlined' : 'text'}
-                    onClick={onAllClickHandler}
-                    color={'inherit'}
-            >All
-            </Button>
-            <Button variant={props.filter === 'active' ? 'outlined' : 'text'}
-                    onClick={onActiveClickHandler}
-                    color={'primary'}>Active
-            </Button>
-            <Button variant={props.filter === 'completed' ? 'outlined' : 'text'}
-                    onClick={onCompletedClickHandler}
-                    color={'secondary'}>Completed
-            </Button>
+        <div>
+            <SplitButton onAllClickHandler={onAllClickHandler} onActiveClickHandler={onActiveClickHandler} onCompletedClickHandler={onCompletedClickHandler}/>
         </div>
 
     </div>

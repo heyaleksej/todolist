@@ -1,36 +1,33 @@
-import React, { useCallback, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, {useCallback, useEffect, useState} from 'react'
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import s from './TodolistsPage.module.css'
-import { AppRootStateType } from '../bll/store';
-import {
-    addTodolistTC, changeTodolistFilterAC, changeTodolistTitleTC,
+import {changeTodolistFilterAC, changeTodolistTitleTC, DropTodolistAC,
     fetchTodolistsTC,
     FilterValuesType,
-    removeTodolistTC,
-    TodolistDomainType
+    removeTodolistTC, TodolistDomainType,
 } from '../bll/todolists-reducer';
-import {addTaskTC, removeTaskTC, TasksStateType, updateTaskTC} from "../bll/task-reducer";
-import { AddItemForm } from '../common/AddItemForm/AddItemForm';
-import { Todolist } from './Todolist';
+import {addTaskTC, removeTaskTC, updateTaskTC} from "../bll/task-reducer";
+import {Todolist} from './Todolist';
 import {TaskStatuses} from "../api/api";
-import { Navigate } from 'react-router-dom';
+import {Navigate} from 'react-router-dom';
+import {useAppDispatch, useAppSelector} from "../common/Hooks/hooks";
 
 export const TodolistsPage: React.FC = () => {
 
-    const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
-    const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
-    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
+    const todolists = useAppSelector(state => state.todolists)
+    const tasks = useAppSelector(state => state.tasks)
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
 
-    const dispatch = useDispatch()
+    const [currentTodo, setCurrentTodo] = useState<any>(null)
+
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
         dispatch(fetchTodolistsTC())
     }, [dispatch])
 
     const removeTask = useCallback(function (id: string, todolistId: string) {
-        dispatch( removeTaskTC(id, todolistId))
+        dispatch(removeTaskTC(id, todolistId))
     }, [dispatch])
 
     const addTask = useCallback(function (title: string, todolistId: string) {
@@ -45,15 +42,11 @@ export const TodolistsPage: React.FC = () => {
     }, [dispatch])
 
 
-    const addTodolist = useCallback((title: string) => {
-        dispatch(addTodolistTC(title))
-    }, [dispatch])
-
-    const changeTaskTitle = useCallback( (todolistId: string, id: string, newTitle: string) => {
+    const changeTaskTitle = useCallback((todolistId: string, id: string, newTitle: string) => {
         dispatch(updateTaskTC(todolistId, id, {title: newTitle}))
     }, [])
 
-    const changeTodolistTitle = useCallback( (todolistId: string, title:string) => {
+    const changeTodolistTitle = useCallback((todolistId: string, title: string) => {
         dispatch(changeTodolistTitleTC(todolistId, title))
     }, [])
 
@@ -66,21 +59,75 @@ export const TodolistsPage: React.FC = () => {
     }, [])
 
     if (!isLoggedIn) {
-        return <Navigate to={"/login"} />
+        return <Navigate to={"/login"}/>
     }
 
 
+    function onDragStartHandler(e: React.DragEvent<HTMLDivElement>, tl: any) {
+        setCurrentTodo(tl)
+        console.log('tl', tl.order)
+    }
+
+    function onDragEndHandler(e: React.DragEvent<HTMLDivElement>) {
+        e.currentTarget.style.background = ''
+
+
+    }
+
+    function onDropHandler(e: React.DragEvent<HTMLDivElement>, tl: TodolistDomainType) {
+        e.preventDefault()
+        e.currentTarget.style.background = ''
+        console.log('tl', tl)
+       dispatch(DropTodolistAC(currentTodo, tl))
+    }
+
+    function onDragLeaveHandler(e: React.DragEvent<HTMLDivElement>) {
+        e.currentTarget.style.background = ''
+
+    }
+
+    function onDragOverHandler(e: React.DragEvent<HTMLDivElement>) {
+        e.preventDefault()
+        console.log('current', currentTodo)
+        e.currentTarget.style.background = 'rgba(115,108,108,0.8)'
+
+    }
+
+    const sortTodo = (a:TodolistDomainType, b: TodolistDomainType)=>{
+        if (a.order > b.order){
+            return 1
+        }
+        else {
+            return -1
+        }
+    }
+
     return <>
-        <Grid container style={{padding: '20px', background: 'url(../common/Img/paper.jpg)', width:'100%', height:'100%'}}>
-            <AddItemForm addItem={addTodolist}/>
-        </Grid>
         <Grid container spacing={3}>
             {
-                todolists.map(tl => {
+                todolists.sort(sortTodo).map(tl => {
                     let allTodolistTasks = tasks[tl.id]
 
-                    return <Grid item key={tl.id}>
-                        <Paper className={s.todoPage}>
+                    return <Grid item key={tl.id} style={{margin: '2%'}}>
+                        <div className={s.todoPage}
+                             draggable={true}
+                             onDragStart={(e) => {
+                                 onDragStartHandler(e, tl)
+                             }}
+                             onDragEnd={(e) => {
+                                 onDragEndHandler(e)
+                             }}
+                             onDragLeave={(e) => {
+                                 onDragLeaveHandler(e)
+                             }}
+                             onDragOver={(e) => {
+                                 onDragOverHandler(e)
+                             }}
+                             onDrop={(e) => {
+                                 onDropHandler(e, tl)
+                             }}
+
+                        >
                             <Todolist
                                 id={tl.id}
                                 title={tl.title}
@@ -95,7 +142,7 @@ export const TodolistsPage: React.FC = () => {
                                 changeTaskStatus={changeStatus}
                             />
 
-                        </Paper>
+                        </div>
                     </Grid>
                 })
             }

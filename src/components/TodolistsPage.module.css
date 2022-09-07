@@ -1,14 +1,37 @@
-.todoPage{
+.todoPage {
     background: url("./../common/Img/pape1.jpeg") repeat;
-    background-size:cover;
-    padding: 0 9% 9%;
-    width: 25vw;
-    margin-right:5% ;
+    background-size: cover;
+    padding: 0 0 9% 15%;
+    min-width: 19vw;
     position: relative;
-}
-
-.clip{
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}.clip{
     display: flex;
     margin: auto;
     height: 4vh;
+     filter: drop-shadow(2px 8px 2px #6b6969);
+
+ }
+
+.titleBlock{
+    margin-block-start:0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3vh;
+}
+
+.taskWrapper{
+    overflow-y: hidden;
+}
+
+.tasksList{
+    height: 40vh;
+    overflow-y: scroll;
+    margin-bottom: 1vh;
+}
+
+@media screen and (max-width: 550px) {
+
+
 }

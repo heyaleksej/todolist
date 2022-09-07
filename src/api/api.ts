@@ -21,6 +21,9 @@ export const todolistAPI = {
     },
     updateTodolist(id: string, title: string) {
         return instance.put<{ title: string }, AxiosResponse<ResponseType>>(`todo-lists/${id}`, {title});
+    },
+    reorderTodolist(id:string,putAfterItemId:string){
+        return instance.put<{id: string}, AxiosResponse<ResponseType>>(`todo-lists/${id}/reorder`, {putAfterItemId})
     }
 }
 
