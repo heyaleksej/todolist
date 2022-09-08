@@ -5,10 +5,10 @@ import {Login} from "../Login/Login";
 
 
 
-export const RoutesNav = React.memo(function () {
+export const RoutesNav = () => {
 
     return <Routes>
         <Route path={"/"} element={<TodolistsPage/>}/>
         <Route path={"/login"} element={<Login/>}/>
     </Routes>
-})
+}

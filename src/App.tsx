@@ -2,7 +2,7 @@ import {CircularProgress} from '@material-ui/core';
 import {Container} from '@mui/material';
 import React, {useEffect } from 'react';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
-import {BrowserRouter} from 'react-router-dom';
+import {HashRouter} from 'react-router-dom';
 import {initializeAppTC} from './bll/app-reducer';
 import { AppRootStateType } from './bll/store';
 import {ErrorSnackbar} from "./common/ErrorSnackbar/ErrorSnackbar";
@@ -32,7 +32,7 @@ function App() {
 
 
     return (
-        <BrowserRouter>
+        <HashRouter>
             <div>
                 <ErrorSnackbar/>
                 <ResponsiveAppBar/>
@@ -40,7 +40,7 @@ function App() {
                     <RoutesNav/>
                 </Container>
             </div>
-        </BrowserRouter>
+        </HashRouter>
 
     );
 }
