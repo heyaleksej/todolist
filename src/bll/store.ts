@@ -1,6 +1,6 @@
 import {AnyAction, applyMiddleware, combineReducers, createStore} from 'redux'
 import thunkMiddleware, {ThunkAction, ThunkDispatch} from 'redux-thunk'
-import { authReducer } from '../components/auth-reducer';
+import { authReducer } from './auth-reducer';
 import { appReducer } from './app-reducer';
 import { tasksReducer } from './task-reducer';
 import { todolistsReducer } from './todolists-reducer';

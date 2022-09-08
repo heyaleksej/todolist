@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
@@ -8,6 +7,7 @@ import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
+import { ButtonX } from '../Button/ButtonX';
 
 const options = ['All', 'Active', 'Completed'];
 
@@ -51,24 +51,18 @@ export default function SplitButton(props:PropsType) {
     };
 
     const ButtonGroupStyle ={
-        width:'100%'
+        width:'92%', justifyContent:'center',boxShadow:'0'
     }
+
+
 
     return (
         <React.Fragment>
-            <ButtonGroup style={ButtonGroupStyle} variant="contained" ref={anchorRef} aria-label="split button">
-                <Button style={{width:'80%'}}>{options[selectedIndex]}</Button>
-                <Button
-                    style={{width:'20%'}}
-                    size="small"
-                    aria-controls={open ? 'split-button-menu' : undefined}
-                    aria-expanded={open ? 'true' : undefined}
-                    aria-label="select merge strategy"
-                    aria-haspopup="menu"
-                    onClick={handleToggle}
-                >
+            <ButtonGroup sx={ButtonGroupStyle} variant="contained" ref={anchorRef} aria-label="split button">
+                <ButtonX style={{width:'60%'}} type='button'  onClick={handleToggle}>{options[selectedIndex]}
                     <ArrowDropDownIcon />
-                </Button>
+                </ButtonX>
+
             </ButtonGroup>
             <Popper
                 sx={{zIndex: 1}}

@@ -1,0 +1,24 @@
+.loginWrap {
+    margin-top: 5%;
+    display: block;
+    background: rgba(211, 211, 206, 0.8);
+    width: 30%;
+    padding: 5%;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+
+@media screen and (max-width: 500px) {
+    .loginWrap {
+        margin-top: 15%;
+        width: 80%;
+    }
+}
+
+@media screen and (min-width: 551px) and (max-width: 912px) and (min-height: 768px){
+    .loginWrap {
+        margin-top: 15%;
+        width: 50%;
+    }
+}

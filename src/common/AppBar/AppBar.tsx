@@ -12,7 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import {useAppDispatch, useAppSelector} from "../Hooks/hooks";
 import {useCallback} from "react";
 import {addTodolistTC} from "../../bll/todolists-reducer";
-import {logoutTC} from "../../components/auth-reducer";
+import {logoutTC} from "../../bll/auth-reducer";
 import {LinearProgress, Typography} from '@material-ui/core';
 import {AddItemForm} from "../AddItemForm/AddItemForm";
 
@@ -47,15 +47,15 @@ export const ResponsiveAppBar = () => {
         <AppBar position="static" style={{background:'none'}}>
             <Toolbar disableGutters className={s.toolBar}>
                 <img src={logo} className={s.logo}/>
-                <Typography variant="h6" className={s.appTitle}>
+                <h3 className={s.appTitle}>
                     Todolist App
-                </Typography>
-                <Container style={{padding:'1%'}}>
+                </h3>
+                <Container style={{}}>
                     <AddItemForm addItem={addTodolist} label={'Enter new todolist name'} inputStyle={s.input} />
                 </Container>
                 <Tooltip title="Open settings">
-                    <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                        <MenuIcon/>
+                    <IconButton onClick={handleOpenUserMenu} >
+                        <MenuIcon sx={{height:'4vh' ,width:'4vh' }}/>
                     </IconButton>
                 </Tooltip>
                 <Menu

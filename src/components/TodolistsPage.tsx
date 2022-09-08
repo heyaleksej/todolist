@@ -23,8 +23,12 @@ export const TodolistsPage: React.FC = () => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        dispatch(fetchTodolistsTC())
-    }, [dispatch])
+        if (!isLoggedIn) {
+            return;
+        }
+        const thunk = fetchTodolistsTC()
+        dispatch(thunk)
+    }, [])
 
     const removeTask = useCallback(function (id: string, todolistId: string) {
         dispatch(removeTaskTC(id, todolistId))
@@ -103,12 +107,11 @@ export const TodolistsPage: React.FC = () => {
     }
 
     return <>
-        <Grid container spacing={3}>
-            {
-                todolists.sort(sortTodo).map(tl => {
+        <Grid container spacing={2}>
+            {todolists.sort(sortTodo).map(tl => {
                     let allTodolistTasks = tasks[tl.id]
 
-                    return <Grid item key={tl.id} style={{margin: '2%'}}>
+                    return <Grid item key={tl.id} style={{margin:'2%'}} >
                         <div className={s.todoPage}
                              draggable={true}
                              onDragStart={(e) => {

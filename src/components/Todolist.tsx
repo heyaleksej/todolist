@@ -7,10 +7,7 @@ import {IconButton} from '@mui/material';
 import {Delete} from '@material-ui/icons';
 import {AddItemForm} from "../common/AddItemForm/AddItemForm";
 import {Task} from './Task/Task';
-import Button from '@material-ui/core/Button';
 import {fetchTasksTC} from '../bll/task-reducer';
-import clip1 from "../common/Img/klipGreen.png";
-import clip2 from "../common/Img/klipOrange.png";
 import clip3 from "../common/Img/klipBlue.png";
 import s from "./TodolistsPage.module.css";
 import SplitButton from "../common/ButtonGroup/SplitButton";
@@ -68,7 +65,7 @@ export const Todolist = React.memo(function (props: PropsType) {
 
     return <div className={s.taskWrapper}>
         <img src={clip3} className={s.clip}/>
-        <h3  className={s.titleBlock} style={{marginBlockStart:'0', display: 'flex', margin:'auto'}}>
+        <h3  className={s.titleBlock} style={{marginBlockStart:'0', display: 'flex', margin:'auto', paddingBottom: '2%'}}>
             <EditableSpan value={props.title} onChange={changeTodolistTitleObertka}/>
             <IconButton onClick={removeTodolist}>
                 <Delete/>

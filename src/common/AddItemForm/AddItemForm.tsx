@@ -37,15 +37,18 @@ export const AddItemForm = React.memo(function (props: AddItemFormPropsType) {
         }
     }
 
+    const finallySize = [`@media (max-width:599px)`] ? 'small': 'medium'
+
     return <div className={s.addForm}>
         <TextField variant="outlined"
                    error={!!error}
+                   size={finallySize}
                    value={title}
                    onChange={onChangeHandler}
                    onKeyPress={onKeyPressHandler}
                    label={props.label}
                    helperText={error}
-                   className={props.inputStyle}
+                   className={`${props.inputStyle}`}
         />
         <img onClick={addItem} src={add} className={s.addLogo}/>
     </div>
