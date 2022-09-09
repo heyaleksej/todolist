@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/todolist/static/css/main.cb0a8f47.css",
-    "main.js": "/todolist/static/js/main.e9991c24.js",
+    "main.css": "/todolist/static/css/main.9e4af4a9.css",
+    "main.js": "/todolist/static/js/main.4eba2306.js",
     "static/js/787.97a945da.chunk.js": "/todolist/static/js/787.97a945da.chunk.js",
-    "static/media/1.jpeg": "/todolist/static/media/1.a176762f6a805138f032.jpeg",
-    "static/media/pape1.jpeg": "/todolist/static/media/pape1.a580c96d4189b8f71ef5.jpeg",
-    "static/media/klipBlue.png": "/todolist/static/media/klipBlue.cdf0b1ff57d7713e0759.png",
+    "static/media/1.jpeg": "/todolist/static/media/1.b2a9120b9b154f21786b.jpeg",
+    "static/media/pape1.jpeg": "/todolist/static/media/pape1.647e3467ad96f45691f6.jpeg",
+    "static/media/klipBlue.png": "/todolist/static/media/klipBlue.86580d5ca5be7407af26.png",
     "static/media/todoist-icon-svgrepo-com.svg": "/todolist/static/media/todoist-icon-svgrepo-com.273c4364a6161e16b59f629319216e10.svg",
     "index.html": "/todolist/index.html",
     "static/media/add-small-svgrepo-com.svg": "/todolist/static/media/add-small-svgrepo-com.b55fd4a93354742f937e4149dca1bb0f.svg",
-    "main.cb0a8f47.css.map": "/todolist/static/css/main.cb0a8f47.css.map",
-    "main.e9991c24.js.map": "/todolist/static/js/main.e9991c24.js.map",
+    "main.9e4af4a9.css.map": "/todolist/static/css/main.9e4af4a9.css.map",
+    "main.4eba2306.js.map": "/todolist/static/js/main.4eba2306.js.map",
     "787.97a945da.chunk.js.map": "/todolist/static/js/787.97a945da.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.cb0a8f47.css",
-    "static/js/main.e9991c24.js"
+    "static/css/main.9e4af4a9.css",
+    "static/js/main.4eba2306.js"
   ]
 }
