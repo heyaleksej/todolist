@@ -7,7 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: url(./common/Img/1.jpeg);
   background-size: 1000px;
-  font-family: "American Typewriter";
+  font-family: "American Typewriter" ,'sans-serif';
 
 
 }

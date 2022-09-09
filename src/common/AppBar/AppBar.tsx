@@ -46,12 +46,12 @@ export const ResponsiveAppBar = () => {
     return (
         <AppBar position="static" style={{background:'none'}}>
             <Toolbar disableGutters className={s.toolBar}>
-                <img src={logo} className={s.logo}/>
+                <img src={logo} className={s.logo} alt={'logo'}/>
                 <h3 className={s.appTitle}>
                     Todolist App
                 </h3>
-                <Container style={{}}>
-                    <AddItemForm addItem={addTodolist} label={'Enter new todolist name'} inputStyle={s.input} />
+                <Container>
+                    {isLoggedIn && <AddItemForm addItem={addTodolist} label={'Enter new todolist name'} inputStyle={s.input} />}
                 </Container>
                 <Tooltip title="Open settings">
                     <IconButton onClick={handleOpenUserMenu} >

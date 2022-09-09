@@ -41,7 +41,7 @@ export const Login = () => {
     }
 
 
-    return <Grid container justify="center">
+    return <Grid container justifyContent='center'>
         <Grid className={s.loginWrap}>
             <form onSubmit={formik.handleSubmit}>
                 <FormControl>
